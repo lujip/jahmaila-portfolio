@@ -1,4 +1,4 @@
-# Virtual Assistant Portfolio Website
+# Jahmaila Ayapana Portfolio Website
 
 A clean, professional, and mobile-responsive portfolio website designed for Virtual Assistants.
 
