@@ -16,6 +16,20 @@ import work3Page4 from './assets/work3/4.png'
 import work3Page5 from './assets/work3/5.png'
 import work3Page6 from './assets/work3/6.png'
 
+//2nd part
+import work4Page1 from './assets/work4/1.png'
+import work4Page2 from './assets/work4/2.png'
+import work4Thumb from './assets/work4/thumb.png'
+import work5Video from './assets/work5/work5.mp4'
+import work5Thumb from './assets/work5/work5-thumb.png'
+import work6Page5 from './assets/work3/5.png'
+import work6Page4 from './assets/work3/4.png'
+
+import work6Page1 from './assets/work6/1.png'
+import work6Page2 from './assets/work6/2.png'
+import work6Page3 from './assets/work6/3.png'
+import work6Xlsx from './assets/work6/work6.xlsx?url'
+
 function App() {
   const [isResumeModalOpen, setIsResumeModalOpen] = useState(false)
   const [selectedWork, setSelectedWork] = useState(null)
@@ -60,6 +74,40 @@ function App() {
         work3Page6,
       ],
       icon: "M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"
+    },
+    {
+      id: 4,
+      title: "Blog Post Layout Designs",
+      shortDescription: "A collection of blog post pictures and layouts designed for clean readability, visual hierarchy, and engaging online content.",
+      pageCount: 2,
+      thumbnail: work4Thumb,
+      images: [
+        work4Page1,
+        work4Page2,
+      ],
+      tallLayout: true,
+      icon: "M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"
+    },
+    {
+      id: 5,
+      title: "Short-Form Video",
+      shortDescription: "A short-form video showcasing creative editing and visual storytelling for social media platforms.",
+      images: [work5Thumb],
+      video: work5Video,
+      icon: "M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"
+    },
+    {
+      id: 6,
+      title: "Excel Calendar Sample",
+      shortDescription: "A well-organized Excel calendar template demonstrating proficiency in spreadsheet design, data organization, and formatting.",
+      pageCount: 3,
+      images: [
+        work6Page1,
+        work6Page2,
+        work6Page3,
+      ],
+      downloadFile: work6Xlsx,
+      icon: "M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm-2 14l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"
     }
   ]
 
@@ -235,6 +283,8 @@ function App() {
                 <span className="skill-tag">Zoom</span>
                 <span className="skill-tag">Google Meet</span>
                 <span className="skill-tag">Discord</span>
+                <span className="skill-tag">ClickUp</span>
+                <span className="skill-tag">Trello</span>
               </div>
             </div>
 
@@ -302,16 +352,20 @@ function App() {
               <div key={work.id} className="work-item" onClick={() => openWorkModal(work)}>
                 <div className="work-image">
                   <div className="work-thumbnail">
-                    <img src={work.images[0]} alt={work.title} />
+                    <img src={work.thumbnail || work.images[0]} alt={work.title} />
                   </div>
                 </div>
                 <div className="work-content">
                   <h3>{work.title}</h3>
                   <p>{work.shortDescription}</p>
                   <div className="work-info">
-                    <span className="work-info-item">📄 {work.pageCount} pages</span>
+                    <span className="work-info-item">
+                      {work.video ? '🎬 Video' : `📄 ${work.pageCount} pages`}
+                    </span>
                   </div>
-                  <span className="work-click-hint">Click to view gallery</span>
+                  <span className="work-click-hint">
+                    {work.video ? 'Click to watch' : 'Click to view gallery'}
+                  </span>
                 </div>
               </div>
             ))}
@@ -331,31 +385,61 @@ function App() {
             <div className="work-gallery-header">
               <h2>{selectedWork.title}</h2>
               <p className="work-gallery-meta">
-                <span>{selectedWork.pageCount} pages</span>
+                <span>{selectedWork.video ? 'Short-form video' : `${selectedWork.pageCount} pages`}</span>
               </p>
             </div>
 
-            <div className="work-gallery-grid">
-              {selectedWork.images.map((image, index) => (
-                <div 
-                  key={index} 
-                  className="work-gallery-grid-item"
-                  onClick={() => expandImage(index)}
-                >
-                  <img src={image} alt={`${selectedWork.title} - Page ${index + 1}`} />
-                  <div className="grid-item-overlay">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
-                      <path d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z"/>
-                    </svg>
+            {selectedWork.video ? (
+              <div className="work-gallery-video">
+                <video
+                  src={selectedWork.video}
+                  controls
+                  playsInline
+                  className="work-video-player"
+                />
+              </div>
+            ) : (
+              <div className={`work-gallery-grid${selectedWork.tallLayout ? ' tall-layout-grid' : ''}`}>
+                {selectedWork.images.map((image, index) => (
+                  <div 
+                    key={index} 
+                    className={`work-gallery-grid-item${selectedWork.tallLayout ? ' tall-layout' : ''}`}
+                    onClick={selectedWork.tallLayout ? undefined : () => expandImage(index)}
+                  >
+                    <img src={image} alt={`${selectedWork.title} - Page ${index + 1}`} />
+                    {!selectedWork.tallLayout && (
+                      <>
+                        <div className="grid-item-overlay">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32">
+                            <path d="M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z"/>
+                          </svg>
+                        </div>
+                        <div className="grid-item-number">{index + 1}</div>
+                      </>
+                    )}
                   </div>
-                  <div className="grid-item-number">{index + 1}</div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
 
             <div className="work-gallery-description">
               <p>{selectedWork.shortDescription}</p>
             </div>
+
+            {selectedWork.downloadFile && (
+              <div className="work-gallery-download">
+                <a
+                  href={selectedWork.downloadFile}
+                  download="Excel-Calendar-Sample.xlsx"
+                  className="resume-button download-button"
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                  </svg>
+                  Download Excel Calendar
+                </a>
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -368,11 +452,14 @@ function App() {
             </svg>
           </button>
 
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+          <div
+            className={`lightbox-content${selectedWork.tallLayout ? ' lightbox-content-tall' : ''}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <img 
               src={selectedWork.images[expandedImageIndex]} 
               alt={`${selectedWork.title} - Page ${expandedImageIndex + 1}`}
-              className="lightbox-image"
+              className={`lightbox-image${selectedWork.tallLayout ? ' lightbox-image-tall' : ''}`}
             />
 
             {selectedWork.images.length > 1 && (
